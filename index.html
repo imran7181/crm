@@ -3,761 +3,1010 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Habili Education — Performance CRM</title>
+<title>Habili Education CRM</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  *{box-sizing:border-box;margin:0;padding:0;}
+  *{margin:0;padding:0;box-sizing:border-box}
   :root{
-    --bg-primary:#ffffff;--bg-secondary:#f5f5f3;--bg-tertiary:#efefec;
-    --text-primary:#1a1a18;--text-secondary:#6b6b67;--text-tertiary:#9b9b96;
-    --border-light:rgba(0,0,0,0.1);--border-mid:rgba(0,0,0,0.18);
-    --blue:#378ADD;--blue-bg:#E6F1FB;--blue-text:#0C447C;
-    --green:#3B6D11;--green-bg:#EAF3DE;--green-text:#27500A;
-    --amber:#BA7517;--amber-bg:#FAEEDA;--amber-text:#633806;
-    --purple:#534AB7;--purple-bg:#EEEDFE;--purple-text:#3C3489;
-    --red:#A32D2D;--red-bg:#FCEBEB;
-    --teal:#0F6E56;--teal-bg:#E1F5EE;--teal-text:#085041;
-    --coral:#993C1D;--coral-bg:#FAECE7;
-    --radius-sm:8px;--radius-md:12px;--radius-lg:16px;
-    --shadow:0 1px 4px rgba(0,0,0,0.08);
-    --font:'Segoe UI',system-ui,-apple-system,sans-serif;
+    --bg:#0F1117;--bg2:#161B25;--bg3:#1E2535;--bg4:#252E42;
+    --accent:#4F8EF7;--accent2:#7C3AED;--green:#22C55E;--amber:#F59E0B;--red:#EF4444;--pink:#EC4899;
+    --text:#F0F4FF;--text2:#8B97B4;--text3:#5A6580;
+    --border:#2A3348;--border2:#3A4560;
+    --card:#1A2236;
+    --font:'Plus Jakarta Sans',sans-serif;
   }
-  body{font-family:var(--font);background:var(--bg-tertiary);color:var(--text-primary);min-height:100vh;}
+  body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;display:flex;overflow-x:hidden}
  
-  /* LOGIN */
-  #login-page{display:flex;align-items:center;justify-content:center;min-height:100vh;background:var(--bg-tertiary);}
-  .login-card{background:var(--bg-primary);border:0.5px solid var(--border-light);border-radius:var(--radius-lg);padding:2.5rem 2rem;width:100%;max-width:380px;box-shadow:var(--shadow);}
-  .login-logo{text-align:center;margin-bottom:1.75rem;}
-  .login-logo .brand{font-size:22px;font-weight:600;color:var(--text-primary);}
-  .login-logo .sub{font-size:13px;color:var(--text-secondary);margin-top:4px;}
-  .login-field{margin-bottom:14px;}
-  .login-field label{display:block;font-size:12px;color:var(--text-secondary);margin-bottom:5px;font-weight:500;}
-  .login-field input{width:100%;padding:10px 12px;border:0.5px solid var(--border-mid);border-radius:var(--radius-sm);font-size:14px;font-family:var(--font);background:var(--bg-primary);color:var(--text-primary);outline:none;}
-  .login-field input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(55,138,221,0.12);}
-  .login-btn{width:100%;padding:11px;background:var(--text-primary);color:#fff;border:none;border-radius:var(--radius-sm);font-size:14px;font-weight:500;cursor:pointer;margin-top:6px;font-family:var(--font);}
-  .login-btn:hover{opacity:0.88;}
-  .login-err{font-size:12px;color:var(--red);margin-top:10px;text-align:center;display:none;}
-  .login-hint{font-size:11px;color:var(--text-tertiary);text-align:center;margin-top:14px;}
+  /* ── Sidebar ── */
+  .sidebar{width:220px;min-height:100vh;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;top:0;left:0;z-index:100;transition:transform 0.25s}
+  .logo{padding:24px 20px 20px;border-bottom:1px solid var(--border)}
+  .logo-mark{display:flex;align-items:center;gap:10px}
+  .logo-icon{width:36px;height:36px;background:linear-gradient(135deg,#4F8EF7,#7C3AED);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#fff;letter-spacing:-0.5px;flex-shrink:0}
+  .logo-text{font-size:14px;font-weight:700;letter-spacing:-0.3px;line-height:1.2}
+  .logo-sub{font-size:10px;color:var(--text3);font-weight:500;letter-spacing:0.5px;text-transform:uppercase}
+  .nav{padding:16px 12px;flex:1;overflow-y:auto}
+  .nav-section{font-size:10px;font-weight:600;color:var(--text3);letter-spacing:1px;text-transform:uppercase;padding:0 8px;margin:16px 0 8px}
+  .nav-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:500;color:var(--text2);transition:all 0.15s;margin-bottom:2px;user-select:none}
+  .nav-item:hover{background:var(--bg3);color:var(--text)}
+  .nav-item.active{background:rgba(79,142,247,0.12);color:var(--accent)}
+  .nav-item svg{width:16px;height:16px;flex-shrink:0}
+  .nav-badge{margin-left:auto;background:var(--accent);color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px;min-width:20px;text-align:center}
+  .sidebar-bottom{padding:16px;border-top:1px solid var(--border)}
+  .user-chip{display:flex;align-items:center;gap:10px}
+  .user-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#4F8EF7,#EC4899);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0}
+  .user-name{font-size:13px;font-weight:600}
+  .user-role{font-size:11px;color:var(--text3)}
  
-  /* APP SHELL */
-  #app{display:none;}
-  .sidebar{position:fixed;top:0;left:0;width:220px;height:100vh;background:var(--bg-primary);border-right:0.5px solid var(--border-light);display:flex;flex-direction:column;z-index:100;}
-  .sidebar-brand{padding:1.25rem 1rem 1rem;border-bottom:0.5px solid var(--border-light);}
-  .sidebar-brand .name{font-size:15px;font-weight:600;color:var(--text-primary);}
-  .sidebar-brand .tagline{font-size:11px;color:var(--text-secondary);margin-top:2px;}
-  .sidebar-nav{flex:1;padding:0.75rem 0.5rem;overflow-y:auto;}
-  .nav-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:var(--radius-sm);cursor:pointer;color:var(--text-secondary);font-size:13px;font-weight:500;margin-bottom:2px;transition:all 0.12s;}
-  .nav-item:hover{background:var(--bg-secondary);color:var(--text-primary);}
-  .nav-item.active{background:var(--bg-secondary);color:var(--text-primary);}
-  .nav-icon{width:16px;height:16px;opacity:0.7;}
-  .sidebar-footer{padding:1rem;border-top:0.5px solid var(--border-light);}
-  .user-row{display:flex;align-items:center;gap:8px;}
-  .user-av{width:30px;height:30px;border-radius:50%;background:var(--blue-bg);color:var(--blue-text);font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;}
-  .user-name{font-size:13px;font-weight:500;color:var(--text-primary);}
-  .user-role{font-size:11px;color:var(--text-secondary);}
-  .logout-btn{margin-left:auto;font-size:11px;color:var(--text-secondary);cursor:pointer;padding:4px 8px;border-radius:6px;border:0.5px solid var(--border-light);}
-  .logout-btn:hover{background:var(--bg-secondary);}
+  /* ── Main ── */
+  .main{margin-left:220px;flex:1;min-height:100vh;display:flex;flex-direction:column;min-width:0}
+  .topbar{height:56px;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 28px;gap:16px;position:sticky;top:0;z-index:50}
+  .topbar-title{font-size:16px;font-weight:700;flex:1;letter-spacing:-0.3px}
+  .topbar-actions{display:flex;gap:8px;align-items:center}
+  .btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all 0.15s;font-family:var(--font)}
+  .btn-primary{background:var(--accent);color:#fff}
+  .btn-primary:hover{background:#3B7AE8;transform:translateY(-1px)}
+  .btn-ghost{background:transparent;color:var(--text2);border:1px solid var(--border2)}
+  .btn-ghost:hover{background:var(--bg3);color:var(--text)}
+  .search-box{display:flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:7px 12px;min-width:220px}
+  .search-box input{background:transparent;border:none;outline:none;color:var(--text);font-size:13px;font-family:var(--font);width:100%}
+  .search-box input::placeholder{color:var(--text3)}
  
-  .main{margin-left:220px;min-height:100vh;padding:1.5rem;}
-  .page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:10px;}
-  .page-title{font-size:20px;font-weight:600;color:var(--text-primary);}
-  .page-sub{font-size:13px;color:var(--text-secondary);margin-top:2px;}
+  /* ── Content ── */
+  .content{padding:24px 28px;flex:1}
+  .page{display:none;animation:fadeIn 0.2s ease}
+  .page.active{display:block}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
  
-  .tab{display:none;}
-  .tab.active{display:block;}
+  /* ── Stats ── */
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+  .stat-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 20px;position:relative;overflow:hidden;transition:transform 0.15s,border-color 0.15s}
+  .stat-card:hover{transform:translateY(-2px);border-color:var(--border2)}
+  .stat-card::before{content:'';position:absolute;top:-20px;right:-20px;width:90px;height:90px;border-radius:50%;opacity:0.07}
+  .stat-card.blue::before{background:var(--accent)}
+  .stat-card.green::before{background:var(--green)}
+  .stat-card.amber::before{background:var(--amber)}
+  .stat-card.purple::before{background:var(--accent2)}
+  .stat-label{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:10px}
+  .stat-value{font-size:30px;font-weight:700;letter-spacing:-1px;line-height:1}
+  .stat-value.blue{color:var(--accent)}
+  .stat-value.green{color:var(--green)}
+  .stat-value.amber{color:var(--amber)}
+  .stat-value.purple{color:var(--accent2)}
+  .stat-change{font-size:12px;color:var(--text3);margin-top:8px}
+  .up{color:var(--green)}
+  .down{color:var(--red)}
  
-  /* COMPONENTS */
-  .metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:1.25rem;}
-  .met{background:var(--bg-secondary);border-radius:var(--radius-sm);padding:14px 16px;}
-  .met-label{font-size:11px;color:var(--text-secondary);margin-bottom:5px;font-weight:500;}
-  .met-val{font-size:22px;font-weight:600;color:var(--text-primary);}
-  .met-sub{font-size:11px;margin-top:3px;}
-  .up{color:#3B6D11;} .dn{color:#A32D2D;} .nt{color:var(--text-secondary);}
+  /* ── Pipeline Kanban ── */
+  .pipeline{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:24px}
+  .pipe-col{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;min-height:300px}
+  .pipe-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+  .pipe-title{font-size:12px;font-weight:700;letter-spacing:0.3px}
+  .pipe-count{font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px}
+  .pipe-count.new{background:rgba(79,142,247,0.15);color:var(--accent)}
+  .pipe-count.contacted{background:rgba(245,158,11,0.15);color:var(--amber)}
+  .pipe-count.qualified{background:rgba(124,58,237,0.15);color:#A78BFA}
+  .pipe-count.demo{background:rgba(236,72,153,0.15);color:var(--pink)}
+  .pipe-count.enrolled{background:rgba(34,197,94,0.15);color:var(--green)}
+  .lead-card{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:8px;cursor:pointer;transition:all 0.15s}
+  .lead-card:hover{border-color:var(--border2);transform:translateY(-2px);box-shadow:0 4px 20px rgba(0,0,0,0.3)}
+  .lead-name{font-size:13px;font-weight:600;margin-bottom:4px}
+  .lead-meta{font-size:11px;color:var(--text3);margin-bottom:8px}
+  .lead-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px}
+  .tag{font-size:10px;font-weight:600;padding:2px 7px;border-radius:20px;letter-spacing:0.3px}
+  .tag.meta{background:rgba(79,142,247,0.12);color:var(--accent)}
+  .tag.google{background:rgba(245,158,11,0.12);color:var(--amber)}
+  .tag.instagram{background:rgba(236,72,153,0.12);color:var(--pink)}
+  .tag.whatsapp{background:rgba(34,197,94,0.12);color:var(--green)}
+  .tag.referral{background:rgba(124,58,237,0.12);color:#A78BFA}
+  .tag.organic{background:rgba(90,101,128,0.2);color:var(--text2)}
+  .tag.hot{background:rgba(239,68,68,0.12);color:var(--red)}
+  .tag.warm{background:rgba(245,158,11,0.12);color:var(--amber)}
+  .tag.cold{background:rgba(79,142,247,0.12);color:var(--accent)}
+  .lead-value{font-size:12px;font-weight:600;color:var(--green)}
  
-  .card{background:var(--bg-primary);border:0.5px solid var(--border-light);border-radius:var(--radius-md);padding:1rem 1.25rem;margin-bottom:12px;}
-  .card-title{font-size:14px;font-weight:600;color:var(--text-primary);margin-bottom:12px;}
-  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-  .three-col{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;}
+  /* ── Table ── */
+  .section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+  .section-title{font-size:16px;font-weight:700;letter-spacing:-0.3px}
+  .filter-bar{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+  .filter-btn{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text2);transition:all 0.15s;font-family:var(--font)}
+  .filter-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .filter-btn:hover:not(.active){background:var(--bg3);color:var(--text)}
+  .table-wrap{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:auto}
+  table{width:100%;border-collapse:collapse;min-width:700px}
+  th{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;padding:12px 16px;text-align:left;border-bottom:1px solid var(--border);background:var(--bg3);white-space:nowrap}
+  td{padding:13px 16px;font-size:13px;border-bottom:1px solid var(--border);vertical-align:middle}
+  tr:last-child td{border-bottom:none}
+  tr:hover td{background:rgba(255,255,255,0.015)}
+  .status-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap}
+  .status-badge::before{content:'';width:6px;height:6px;border-radius:50%;flex-shrink:0}
+  .status-badge.new{background:rgba(79,142,247,0.12);color:var(--accent)}
+  .status-badge.new::before{background:var(--accent)}
+  .status-badge.contacted{background:rgba(245,158,11,0.12);color:var(--amber)}
+  .status-badge.contacted::before{background:var(--amber)}
+  .status-badge.qualified{background:rgba(124,58,237,0.12);color:#A78BFA}
+  .status-badge.qualified::before{background:#A78BFA}
+  .status-badge.enrolled{background:rgba(34,197,94,0.12);color:var(--green)}
+  .status-badge.enrolled::before{background:var(--green)}
+  .status-badge.lost{background:rgba(239,68,68,0.12);color:var(--red)}
+  .status-badge.lost::before{background:var(--red)}
+  .avatar-sm{width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0}
+  .name-cell{display:flex;align-items:center;gap:10px}
+  .action-btn{padding:5px 10px;border-radius:6px;background:var(--bg4);border:1px solid var(--border);color:var(--text2);font-size:11px;font-weight:600;cursor:pointer;transition:all 0.15s;font-family:var(--font)}
+  .action-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .del-btn{padding:5px 10px;border-radius:6px;background:transparent;border:1px solid var(--border);color:var(--red);font-size:11px;font-weight:600;cursor:pointer;transition:all 0.15s;font-family:var(--font)}
+  .del-btn:hover{background:var(--red);color:#fff}
+  .inline-select{background:var(--bg4);border:1px solid var(--border);border-radius:6px;padding:4px 8px;color:var(--text);font-size:12px;font-family:var(--font);cursor:pointer;outline:none}
+  .inline-select:focus{border-color:var(--accent)}
  
-  .badge{display:inline-block;font-size:11px;padding:2px 8px;border-radius:20px;font-weight:500;}
-  .b-meta{background:var(--blue-bg);color:var(--blue-text);}
-  .b-seo{background:var(--green-bg);color:var(--green-text);}
-  .b-new{background:var(--amber-bg);color:var(--amber-text);}
-  .b-contacted{background:var(--blue-bg);color:var(--blue-text);}
-  .b-qualified{background:var(--purple-bg);color:var(--purple-text);}
-  .b-proposal{background:var(--amber-bg);color:var(--amber-text);}
-  .b-converted{background:var(--green-bg);color:var(--green-text);}
-  .b-lost{background:var(--red-bg);color:var(--red);}
+  /* ── Charts ── */
+  .charts-row{display:grid;grid-template-columns:1.4fr 1fr;gap:14px;margin-bottom:24px}
+  .chart-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px}
+  .chart-title{font-size:14px;font-weight:700;margin-bottom:16px;letter-spacing:-0.3px}
+  .bar-chart{display:flex;align-items:flex-end;gap:8px;height:140px;margin-bottom:8px}
+  .bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%}
+  .bar-inner{width:100%;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;justify-content:flex-end}
+  .bar{width:100%;border-radius:5px 5px 0 0;transition:height 0.5s ease;min-height:3px}
+  .bar.accent{background:linear-gradient(to top,#4F8EF7,#7C3AED)}
+  .bar.green{background:linear-gradient(to top,#22C55E,#16A34A)}
+  .bar-label{font-size:10px;color:var(--text3);font-weight:600;text-align:center}
+  .bar-val{font-size:10px;color:var(--text2);font-weight:700}
+  .chart-legend{display:flex;gap:16px;margin-top:6px}
+  .legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text3)}
+  .legend-dot-sq{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+  .donut-wrap{display:flex;align-items:center;gap:20px}
+  .donut-legend{display:flex;flex-direction:column;gap:8px;flex:1}
+  .donut-legend-item{display:flex;align-items:center;gap:8px;font-size:12px}
+  .donut-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+  .donut-label{color:var(--text2);flex:1}
+  .donut-val{font-weight:700}
  
-  .tbl{width:100%;border-collapse:collapse;font-size:13px;}
-  .tbl th{text-align:left;font-size:11px;font-weight:600;color:var(--text-secondary);padding:8px 10px;border-bottom:0.5px solid var(--border-light);white-space:nowrap;}
-  .tbl td{padding:10px 10px;border-bottom:0.5px solid var(--border-light);color:var(--text-primary);vertical-align:middle;}
-  .tbl tr:last-child td{border-bottom:none;}
-  .tbl tbody tr:hover td{background:var(--bg-secondary);cursor:pointer;}
+  /* ── Analytics ── */
+  .analytics-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px}
+  .metric-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px}
+  .metric-label{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px}
+  .metric-value{font-size:32px;font-weight:700;letter-spacing:-1.5px;line-height:1;margin-bottom:6px}
+  .metric-sub{font-size:12px;color:var(--text3)}
+  .progress-bar{height:6px;background:var(--bg4);border-radius:20px;overflow:hidden;margin-top:12px}
+  .progress-fill{height:100%;border-radius:20px;transition:width 0.8s ease}
+  .source-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+  .source-row:last-child{border-bottom:none}
+  .source-name{font-size:13px;font-weight:600;flex:1;min-width:80px}
+  .source-count{font-size:13px;font-weight:700;min-width:24px;text-align:right}
+  .source-bar-wrap{flex:2;height:6px;background:var(--bg4);border-radius:20px;overflow:hidden}
+  .source-bar-fill{height:100%;border-radius:20px;transition:width 0.6s ease}
+  .source-rate{font-size:12px;font-weight:700;min-width:36px;text-align:right}
+  .funnel-stage{margin-bottom:14px}
+  .funnel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+  .funnel-label{font-size:13px;font-weight:600}
+  .funnel-count{font-size:13px;font-weight:700}
+  .funnel-pct{font-size:11px;color:var(--text3);font-weight:400;margin-left:4px}
+  .funnel-track{height:32px;background:var(--bg4);border-radius:6px;overflow:hidden}
+  .funnel-fill{height:100%;border-radius:6px;opacity:0.85;transition:width 0.7s ease}
  
-  .avatar{border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;flex-shrink:0;}
+  /* ── Modal ── */
+  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.65);z-index:1000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.2s;backdrop-filter:blur(6px)}
+  .modal-overlay.open{opacity:1;pointer-events:all}
+  .modal{background:var(--bg2);border:1px solid var(--border2);border-radius:18px;width:520px;max-width:95vw;max-height:90vh;overflow-y:auto;transform:scale(0.96);transition:transform 0.2s}
+  .modal-overlay.open .modal{transform:scale(1)}
+  .modal-header{padding:24px 24px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--bg2);z-index:1}
+  .modal-title{font-size:16px;font-weight:700;letter-spacing:-0.3px}
+  .modal-close{width:30px;height:30px;border-radius:50%;background:var(--bg3);border:1px solid var(--border);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;font-family:var(--font);transition:all 0.15s}
+  .modal-close:hover{background:var(--red);color:#fff;border-color:var(--red)}
+  .modal-body{padding:20px 24px}
+  .modal-footer{padding:16px 24px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px;position:sticky;bottom:0;background:var(--bg2)}
+  .form-group{margin-bottom:16px}
+  .form-label{display:block;font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px}
+  .form-input{width:100%;background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:10px 12px;color:var(--text);font-size:13px;font-family:var(--font);outline:none;transition:border-color 0.15s}
+  .form-input:focus{border-color:var(--accent)}
+  .form-input::placeholder{color:var(--text3)}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  select.form-input{cursor:pointer}
+  select.form-input option{background:var(--bg3);color:var(--text)}
+  textarea.form-input{resize:vertical;min-height:80px}
+  .required-star{color:var(--red)}
  
-  .pipeline-stages{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-bottom:1.25rem;}
-  .stage-box{background:var(--bg-secondary);border-radius:var(--radius-sm);padding:12px;border-top:3px solid transparent;}
-  .stage-box.s-new{border-color:var(--amber);}
-  .stage-box.s-contacted{border-color:var(--blue);}
-  .stage-box.s-qualified{border-color:var(--purple);}
-  .stage-box.s-proposal{border-color:#EF9F27;}
-  .stage-box.s-converted{border-color:var(--green);}
-  .stage-name{font-size:11px;font-weight:600;color:var(--text-secondary);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.04em;}
-  .stage-num{font-size:24px;font-weight:700;color:var(--text-primary);}
-  .stage-val{font-size:12px;color:var(--text-secondary);margin-top:2px;}
+  /* ── Toast ── */
+  .toast{position:fixed;bottom:24px;right:24px;background:var(--card);border:1px solid var(--border2);border-radius:12px;padding:14px 18px;font-size:13px;font-weight:600;color:var(--text);z-index:9999;transform:translateY(80px);opacity:0;transition:all 0.3s;display:flex;align-items:center;gap:10px;max-width:320px}
+  .toast.show{transform:translateY(0);opacity:1}
+  .toast.success{border-color:var(--green);color:var(--green)}
+  .toast.error{border-color:var(--red);color:var(--red)}
  
-  .lead-mini{background:var(--bg-primary);border:0.5px solid var(--border-light);border-radius:var(--radius-sm);padding:10px 12px;margin-bottom:6px;cursor:pointer;transition:border-color 0.12s;}
-  .lead-mini:hover{border-color:var(--border-mid);}
+  /* ── Empty state ── */
+  .empty-state{text-align:center;padding:48px 24px;color:var(--text3)}
+  .empty-state svg{opacity:0.3;margin-bottom:12px}
+  .empty-state h3{font-size:16px;font-weight:600;margin-bottom:6px;color:var(--text2)}
+  .empty-state p{font-size:13px}
  
-  .funnel-bar{margin-bottom:10px;}
-  .funnel-bar-label{display:flex;justify-content:space-between;font-size:12px;color:var(--text-secondary);margin-bottom:4px;}
-  .funnel-track{background:var(--bg-secondary);border-radius:4px;height:8px;overflow:hidden;}
-  .funnel-fill{height:100%;border-radius:4px;}
+  /* ── Mobile ── */
+  .hamburger{display:none;background:none;border:none;color:var(--text);cursor:pointer;padding:4px}
+  .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:99}
  
-  .activity-row{display:flex;gap:10px;padding:9px 0;border-bottom:0.5px solid var(--border-light);}
-  .activity-row:last-child{border-bottom:none;}
-  .act-dot{width:8px;height:8px;border-radius:50%;margin-top:5px;flex-shrink:0;}
-  .act-text{font-size:13px;color:var(--text-primary);}
-  .act-meta{font-size:11px;color:var(--text-secondary);margin-top:2px;}
- 
-  .filter-row{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;align-items:center;}
-  .filter-row select,.filter-row input{font-size:12px;padding:6px 10px;border:0.5px solid var(--border-mid);border-radius:var(--radius-sm);background:var(--bg-primary);color:var(--text-primary);font-family:var(--font);outline:none;}
-  .filter-row input{width:220px;}
- 
-  .btn{padding:8px 16px;font-size:13px;border-radius:var(--radius-sm);border:0.5px solid var(--border-mid);background:var(--bg-primary);color:var(--text-primary);cursor:pointer;font-weight:500;font-family:var(--font);}
-  .btn:hover{background:var(--bg-secondary);}
-  .btn-primary{background:var(--text-primary);color:#fff;border-color:var(--text-primary);}
-  .btn-primary:hover{opacity:0.85;}
-  .btn-danger{border-color:var(--red);color:var(--red);}
-  .btn-danger:hover{background:var(--red-bg);}
- 
-  /* MODAL */
-  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:200;align-items:center;justify-content:center;}
-  .modal-overlay.open{display:flex;}
-  .modal-box{background:var(--bg-primary);border-radius:var(--radius-lg);padding:1.75rem;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow);}
-  .modal-title{font-size:16px;font-weight:600;color:var(--text-primary);margin-bottom:1.25rem;}
-  .modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-  .field{margin-bottom:0;}
-  .field label{display:block;font-size:12px;color:var(--text-secondary);margin-bottom:4px;font-weight:500;}
-  .field input,.field select,.field textarea{width:100%;padding:9px 10px;border:0.5px solid var(--border-mid);border-radius:var(--radius-sm);font-size:13px;font-family:var(--font);background:var(--bg-primary);color:var(--text-primary);outline:none;}
-  .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(55,138,221,0.1);}
-  .field textarea{height:70px;resize:vertical;}
-  .modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:1.25rem;}
- 
-  /* LEAD DETAIL */
-  .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
-  .detail-field .dl{font-size:11px;color:var(--text-secondary);margin-bottom:3px;font-weight:500;}
-  .detail-field .dv{font-size:14px;color:var(--text-primary);font-weight:500;}
-  .step-item{display:flex;gap:12px;padding:10px 0;border-bottom:0.5px solid var(--border-light);}
-  .step-item:last-child{border-bottom:none;}
-  .step-num{width:26px;height:26px;border-radius:50%;background:var(--blue-bg);color:var(--blue-text);font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-  .step-title{font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:3px;}
-  .step-desc{font-size:12px;color:var(--text-secondary);line-height:1.5;}
-  .step-due{display:inline-block;font-size:11px;padding:1px 7px;border-radius:12px;background:var(--bg-secondary);color:var(--text-secondary);margin-top:4px;}
- 
-  .progress-bar{background:var(--bg-secondary);border-radius:4px;height:6px;overflow:hidden;width:80px;}
-  .progress-fill{height:100%;border-radius:4px;}
- 
-  /* CONV TAB */
-  .conv-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:0.5px solid var(--border-light);}
-  .conv-row:last-child{border-bottom:none;}
- 
-  /* REPORTS */
-  .report-metric{background:var(--bg-secondary);border-radius:var(--radius-sm);padding:16px;text-align:center;}
-  .report-metric .rv{font-size:28px;font-weight:700;color:var(--text-primary);}
-  .report-metric .rl{font-size:12px;color:var(--text-secondary);margin-top:4px;}
- 
-  @media(max-width:768px){
-    .sidebar{display:none;}
-    .main{margin-left:0;padding:1rem;}
-    .metrics,.pipeline-stages{grid-template-columns:1fr 1fr;}
-    .two-col,.three-col,.modal-grid,.detail-grid{grid-template-columns:1fr;}
+  @media(max-width:900px){
+    .stats-grid{grid-template-columns:1fr 1fr}
+    .pipeline{grid-template-columns:repeat(3,minmax(180px,1fr));overflow-x:auto}
+    .charts-row{grid-template-columns:1fr}
+    .analytics-grid{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:680px){
+    .sidebar{transform:translateX(-100%)}
+    .sidebar.open{transform:translateX(0)}
+    .sidebar-overlay.show{display:block}
+    .main{margin-left:0}
+    .hamburger{display:block}
+    .stats-grid{grid-template-columns:1fr 1fr}
+    .analytics-grid{grid-template-columns:1fr}
+    .content{padding:16px}
+    .topbar{padding:0 16px}
+    .search-box{display:none}
+    .form-row{grid-template-columns:1fr}
   }
 </style>
 </head>
 <body>
  
-<!-- LOGIN PAGE -->
-<div id="login-page">
-  <div class="login-card">
-    <div class="login-logo">
-      <div class="brand">Habili Education</div>
-      <div class="sub">Performance Marketing CRM</div>
-    </div>
-    <div class="login-field">
-      <label>Email address</label>
-      <input type="email" id="login-email" placeholder="you@habili.education" autocomplete="username" />
-    </div>
-    <div class="login-field">
-      <label>Password</label>
-      <input type="password" id="login-pass" placeholder="Enter password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()" />
-    </div>
-    <button class="login-btn" onclick="doLogin()">Sign in</button>
-    <div class="login-err" id="login-err">Invalid email or password. Try again.</div>
-    <div class="login-hint">Demo: admin@habili.education / habili2025</div>
-  </div>
-</div>
+<!-- Sidebar overlay (mobile) -->
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
  
-<!-- APP -->
-<div id="app">
-  <div class="sidebar">
-    <div class="sidebar-brand">
-      <div class="name">Habili CRM</div>
-      <div class="tagline">Performance Marketing</div>
-    </div>
-    <nav class="sidebar-nav">
-      <div class="nav-item active" onclick="showTab('dashboard',this)">
-        <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>
-        Dashboard
-      </div>
-      <div class="nav-item" onclick="showTab('pipeline',this)">
-        <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 4h14M1 8h10M1 12h6"/></svg>
-        Pipeline
-      </div>
-      <div class="nav-item" onclick="showTab('leads',this)">
-        <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="5" r="3"/><path d="M2 14c0-3.314 2.686-5 6-5s6 1.686 6 5"/></svg>
-        All leads
-      </div>
-      <div class="nav-item" onclick="showTab('conversions',this)">
-        <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="1,12 5,8 8,10 15,3"/></svg>
-        Conversions
-      </div>
-      <div class="nav-item" onclick="showTab('activity',this)">
-        <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/></svg>
-        Activity
-      </div>
-      <div class="nav-item" onclick="showTab('reports',this)">
-        <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="8" width="3" height="6" rx="1"/><rect x="6" y="5" width="3" height="9" rx="1"/><rect x="11" y="2" width="3" height="12" rx="1"/></svg>
-        Reports
-      </div>
-    </nav>
-    <div class="sidebar-footer">
-      <div class="user-row">
-        <div class="user-av" id="user-av">SK</div>
-        <div>
-          <div class="user-name" id="user-name">Sana K.</div>
-          <div class="user-role">Marketer</div>
-        </div>
-        <div class="logout-btn" onclick="doLogout()">Out</div>
+<!-- Sidebar -->
+<nav class="sidebar" id="sidebar">
+  <div class="logo">
+    <div class="logo-mark">
+      <div class="logo-icon">HE</div>
+      <div>
+        <div class="logo-text">Habili Education</div>
+        <div class="logo-sub">CRM System</div>
       </div>
     </div>
   </div>
- 
-  <div class="main">
- 
-    <!-- DASHBOARD -->
-    <div class="tab active" id="tab-dashboard">
-      <div class="page-header">
-        <div><div class="page-title">Dashboard</div><div class="page-sub">Overview for April 2025</div></div>
-        <button class="btn btn-primary" onclick="openAddModal()">+ Add lead</button>
-      </div>
-      <div class="metrics">
-        <div class="met"><div class="met-label">Total leads</div><div class="met-val" id="d-total">24</div><div class="met-sub up">+3 this week</div></div>
-        <div class="met"><div class="met-label">Conversion rate</div><div class="met-val" id="d-cvr">29%</div><div class="met-sub up">+4% vs last month</div></div>
-        <div class="met"><div class="met-label">Pipeline value</div><div class="met-val" id="d-pipe">₹18.4L</div><div class="met-sub nt">active leads</div></div>
-        <div class="met"><div class="met-label">Revenue closed</div><div class="met-val" id="d-rev">₹5.15L</div><div class="met-sub up">+18% MoM</div></div>
-      </div>
-      <div class="two-col">
-        <div>
-          <div class="card">
-            <div class="card-title">Funnel overview</div>
-            <div id="dash-funnel"></div>
-          </div>
-          <div class="card">
-            <div class="card-title">Channel split</div>
-            <div id="dash-channel"></div>
-          </div>
-        </div>
-        <div>
-          <div class="card" style="margin-bottom:12px">
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-              <div class="card-title" style="margin:0">Recent leads</div>
-            </div>
-            <div id="dash-recent"></div>
-          </div>
-          <div class="card">
-            <div class="card-title">Marketer performance</div>
-            <div id="dash-marketers"></div>
-          </div>
-        </div>
+  <div class="nav">
+    <div class="nav-section">Overview</div>
+    <div class="nav-item active" data-page="dashboard" onclick="showPage('dashboard')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+      Dashboard
+    </div>
+    <div class="nav-section">Leads</div>
+    <div class="nav-item" data-page="leads" onclick="showPage('leads')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      All Leads
+      <span class="nav-badge" id="new-badge">0</span>
+    </div>
+    <div class="nav-item" data-page="pipeline" onclick="showPage('pipeline')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+      Pipeline
+    </div>
+    <div class="nav-section">Reporting</div>
+    <div class="nav-item" data-page="analytics" onclick="showPage('analytics')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      Analytics
+    </div>
+  </div>
+  <div class="sidebar-bottom">
+    <div class="user-chip">
+      <div class="user-avatar">HA</div>
+      <div>
+        <div class="user-name">Habili Admin</div>
+        <div class="user-role">Marketing Manager</div>
       </div>
     </div>
+  </div>
+</nav>
  
-    <!-- PIPELINE -->
-    <div class="tab" id="tab-pipeline">
-      <div class="page-header">
-        <div><div class="page-title">Pipeline</div><div class="page-sub">Track leads by stage</div></div>
-        <button class="btn btn-primary" onclick="openAddModal()">+ Add lead</button>
+<!-- Main content -->
+<div class="main">
+  <!-- Topbar -->
+  <div class="topbar">
+    <button class="hamburger" onclick="toggleSidebar()">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <div class="topbar-title" id="page-title">Dashboard</div>
+    <div class="topbar-actions">
+      <div class="search-box">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5A6580" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" placeholder="Search students..." id="search-input" oninput="filterLeads()">
       </div>
-      <div class="pipeline-stages" id="pipeline-stages"></div>
-      <div class="two-col">
-        <div>
-          <div class="card-title" style="margin-bottom:8px;font-size:14px;font-weight:600">Lead cards</div>
-          <div id="pipeline-cards"></div>
+      <button class="btn btn-primary" onclick="openModal()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Add Lead
+      </button>
+    </div>
+  </div>
+ 
+  <div class="content">
+ 
+    <!-- ═══ DASHBOARD ═══ -->
+    <div class="page active" id="page-dashboard">
+      <div class="stats-grid">
+        <div class="stat-card blue">
+          <div class="stat-label">Total Leads</div>
+          <div class="stat-value blue" id="stat-total">0</div>
+          <div class="stat-change">This month: <span class="up" id="stat-month">0</span> new</div>
         </div>
-        <div>
-          <div class="card">
-            <div class="card-title">Conversion funnel</div>
-            <div id="pipe-funnel"></div>
+        <div class="stat-card green">
+          <div class="stat-label">Enrolled</div>
+          <div class="stat-value green" id="stat-enrolled">0</div>
+          <div class="stat-change">Conversion: <span class="up" id="stat-rate">0%</span></div>
+        </div>
+        <div class="stat-card amber">
+          <div class="stat-label">Active Pipeline</div>
+          <div class="stat-value amber" id="stat-pipeline">0</div>
+          <div class="stat-change">Prospects in progress</div>
+        </div>
+        <div class="stat-card purple">
+          <div class="stat-label">Expected Revenue</div>
+          <div class="stat-value purple" id="stat-revenue">₹0</div>
+          <div class="stat-change">From enrolled students</div>
+        </div>
+      </div>
+ 
+      <div class="charts-row">
+        <div class="chart-card">
+          <div class="chart-title">Monthly Lead Volume</div>
+          <div class="bar-chart" id="bar-chart"></div>
+          <div class="chart-legend">
+            <div class="legend-item"><div class="legend-dot-sq" style="background:linear-gradient(to right,#4F8EF7,#7C3AED)"></div>Leads</div>
+            <div class="legend-item"><div class="legend-dot-sq" style="background:var(--green)"></div>Enrolled</div>
           </div>
         </div>
-      </div>
-    </div>
- 
-    <!-- ALL LEADS -->
-    <div class="tab" id="tab-leads">
-      <div class="page-header">
-        <div><div class="page-title">All leads</div><div class="page-sub" id="leads-count">24 leads</div></div>
-        <button class="btn btn-primary" onclick="openAddModal()">+ Add lead</button>
-      </div>
-      <div class="filter-row">
-        <input type="text" id="f-search" placeholder="Search by name or company..." oninput="renderLeads()" />
-        <select id="f-stage" onchange="renderLeads()">
-          <option value="">All stages</option>
-          <option>New</option><option>Contacted</option><option>Qualified</option><option>Proposal</option><option>Converted</option><option>Lost</option>
-        </select>
-        <select id="f-channel" onchange="renderLeads()">
-          <option value="">All channels</option>
-          <option>Meta</option><option>SEO</option>
-        </select>
-        <select id="f-marketer" onchange="renderLeads()">
-          <option value="">All marketers</option>
-          <option>Arjun M.</option><option>Sana K.</option>
-        </select>
-      </div>
-      <div class="card" style="padding:0;overflow:hidden;">
-        <div style="overflow-x:auto;">
-          <table class="tbl">
-            <thead><tr>
-              <th style="padding-left:16px;width:200px">Lead</th>
-              <th>Channel</th><th>Stage</th><th>Value</th>
-              <th>Marketer</th><th>Last contact</th><th>Progress</th><th></th>
-            </tr></thead>
-            <tbody id="leads-tbody"></tbody>
-          </table>
+        <div class="chart-card">
+          <div class="chart-title">Source Breakdown</div>
+          <div id="source-donut"></div>
         </div>
       </div>
-    </div>
  
-    <!-- CONVERSIONS -->
-    <div class="tab" id="tab-conversions">
-      <div class="page-header">
-        <div><div class="page-title">Conversions</div><div class="page-sub">Closed deals and performance</div></div>
+      <div class="section-header">
+        <div class="section-title">Recent Leads</div>
+        <button class="btn btn-ghost" onclick="showPage('leads')" style="font-size:12px;padding:6px 12px">View All →</button>
       </div>
-      <div class="metrics">
-        <div class="met"><div class="met-label">Total conversions</div><div class="met-val" id="cv-count">0</div><div class="met-sub up">this period</div></div>
-        <div class="met"><div class="met-label">Revenue closed</div><div class="met-val" id="cv-rev">₹0</div><div class="met-sub up">all channels</div></div>
-        <div class="met"><div class="met-label">Meta conversions</div><div class="met-val" id="cv-meta">0</div><div class="met-sub nt">deals</div></div>
-        <div class="met"><div class="met-label">SEO conversions</div><div class="met-val" id="cv-seo">0</div><div class="met-sub nt">deals</div></div>
-      </div>
-      <div class="two-col">
-        <div class="card"><div class="card-title">By channel</div><div id="conv-channel"></div></div>
-        <div class="card"><div class="card-title">By marketer</div><div id="conv-marketer"></div></div>
-      </div>
-      <div class="card">
-        <div class="card-title">Converted leads</div>
-        <table class="tbl">
-          <thead><tr><th>Client</th><th>Channel</th><th>Value</th><th>Marketer</th><th>Close date</th></tr></thead>
-          <tbody id="conv-tbody"></tbody>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Student</th><th>Source</th><th>Course</th><th>Status</th><th>Score</th><th>Date</th><th>Action</th></tr></thead>
+          <tbody id="recent-tbody"></tbody>
         </table>
       </div>
     </div>
  
-    <!-- ACTIVITY -->
-    <div class="tab" id="tab-activity">
-      <div class="page-header">
-        <div><div class="page-title">Activity log</div><div class="page-sub">All actions across leads</div></div>
+    <!-- ═══ ALL LEADS ═══ -->
+    <div class="page" id="page-leads">
+      <div class="section-header">
+        <div class="section-title">All Leads</div>
+        <button class="btn btn-ghost" onclick="exportCSV()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Export CSV
+        </button>
       </div>
-      <div class="card" id="activity-list"></div>
-    </div>
- 
-    <!-- REPORTS -->
-    <div class="tab" id="tab-reports">
-      <div class="page-header">
-        <div><div class="page-title">Reports</div><div class="page-sub">ROI & budget summary</div></div>
+      <div class="filter-bar">
+        <button class="filter-btn active" onclick="filterStatus('all',this)">All</button>
+        <button class="filter-btn" onclick="filterStatus('new',this)">🔵 New</button>
+        <button class="filter-btn" onclick="filterStatus('contacted',this)">🟡 Contacted</button>
+        <button class="filter-btn" onclick="filterStatus('qualified',this)">🟣 Qualified</button>
+        <button class="filter-btn" onclick="filterStatus('enrolled',this)">🟢 Enrolled</button>
+        <button class="filter-btn" onclick="filterStatus('lost',this)">🔴 Lost</button>
       </div>
-      <div class="three-col" style="margin-bottom:12px">
-        <div class="report-metric"><div class="rv" id="r-roas">4.2x</div><div class="rl">Meta ROAS</div></div>
-        <div class="report-metric"><div class="rv" id="r-seo-roas">3.1x</div><div class="rl">SEO ROAS</div></div>
-        <div class="report-metric"><div class="rv" id="r-cpl">₹310</div><div class="rl">Avg. CPL (Meta)</div></div>
-      </div>
-      <div class="two-col">
-        <div class="card">
-          <div class="card-title">Budget utilisation</div>
-          <div id="r-budget"></div>
-        </div>
-        <div class="card">
-          <div class="card-title">Lead quality by channel</div>
-          <div id="r-quality"></div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-title">Monthly summary</div>
-        <table class="tbl">
-          <thead><tr><th>Month</th><th>Leads</th><th>Conversions</th><th>CVR</th><th>Revenue</th><th>Spend</th><th>ROAS</th></tr></thead>
-          <tbody>
-            <tr><td>Nov 2024</td><td>38</td><td>10</td><td>26%</td><td>₹5.2L</td><td>₹1.5L</td><td>3.5x</td></tr>
-            <tr><td>Dec 2024</td><td>42</td><td>12</td><td>29%</td><td>₹6.1L</td><td>₹1.7L</td><td>3.6x</td></tr>
-            <tr><td>Jan 2025</td><td>45</td><td>13</td><td>29%</td><td>₹7.2L</td><td>₹2.0L</td><td>3.6x</td></tr>
-            <tr><td>Feb 2025</td><td>50</td><td>15</td><td>30%</td><td>₹7.8L</td><td>₹2.1L</td><td>3.7x</td></tr>
-            <tr><td>Mar 2025</td><td>48</td><td>14</td><td>29%</td><td>₹8.5L</td><td>₹2.2L</td><td>3.9x</td></tr>
-            <tr><td>Apr 2025</td><td id="r-apr-leads">24</td><td id="r-apr-conv">4</td><td id="r-apr-cvr">17%</td><td>₹5.15L</td><td>₹2.4L</td><td>4.1x</td></tr>
-          </tbody>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Student</th>
+              <th>Phone</th>
+              <th>Source</th>
+              <th>Campaign</th>
+              <th>Course</th>
+              <th>Status</th>
+              <th>Score</th>
+              <th>Assigned To</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="leads-tbody"></tbody>
         </table>
       </div>
     </div>
  
+    <!-- ═══ PIPELINE ═══ -->
+    <div class="page" id="page-pipeline">
+      <div class="section-header">
+        <div class="section-title">Lead Pipeline</div>
+        <div style="font-size:13px;color:var(--text3)">Visual view of all stages</div>
+      </div>
+      <div class="pipeline" id="pipeline-board"></div>
+    </div>
+ 
+    <!-- ═══ ANALYTICS ═══ -->
+    <div class="page" id="page-analytics">
+      <div class="analytics-grid">
+        <div class="metric-card">
+          <div class="metric-label">Conversion Rate</div>
+          <div class="metric-value" style="color:var(--green)" id="an-conv">0%</div>
+          <div class="metric-sub">Lead to Enrolled</div>
+          <div class="progress-bar"><div class="progress-fill" style="background:var(--green)" id="an-conv-bar"></div></div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Loss Rate</div>
+          <div class="metric-value" style="color:var(--red)" id="an-loss">0%</div>
+          <div class="metric-sub">Leads marked as Lost</div>
+          <div class="progress-bar"><div class="progress-fill" style="background:var(--red)" id="an-loss-bar"></div></div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Revenue Collected</div>
+          <div class="metric-value" style="color:var(--amber)" id="an-rev">₹0</div>
+          <div class="metric-sub">From enrolled students</div>
+          <div class="progress-bar"><div class="progress-fill" style="background:var(--amber);width:70%"></div></div>
+        </div>
+      </div>
+ 
+      <div class="charts-row">
+        <div class="chart-card">
+          <div class="chart-title">Source Performance (Leads vs Conversion %)</div>
+          <div id="source-performance"></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Team Performance</div>
+          <div id="team-performance"></div>
+        </div>
+      </div>
+ 
+      <div class="chart-card" style="margin-top:14px">
+        <div class="chart-title">Conversion Funnel</div>
+        <div id="funnel-chart" style="padding:8px 0"></div>
+      </div>
+    </div>
+ 
   </div>
 </div>
  
-<!-- ADD/EDIT LEAD MODAL -->
-<div class="modal-overlay" id="lead-modal">
-  <div class="modal-box">
-    <div class="modal-title" id="modal-title">Add new lead</div>
-    <div class="modal-grid">
-      <div class="field"><label>Client name *</label><input type="text" id="m-name" placeholder="Full name" /></div>
-      <div class="field"><label>Company</label><input type="text" id="m-company" placeholder="Company name" /></div>
-      <div class="field"><label>Email</label><input type="email" id="m-email" placeholder="email@example.com" /></div>
-      <div class="field"><label>Phone</label><input type="tel" id="m-phone" placeholder="+91 98765 43210" /></div>
-      <div class="field"><label>Channel</label><select id="m-channel"><option>Meta</option><option>SEO</option></select></div>
-      <div class="field"><label>Deal value (₹)</label><input type="number" id="m-value" placeholder="75000" /></div>
-      <div class="field"><label>Assigned marketer</label><input type="text" id="m-marketer" placeholder="Marketer name" /></div>
-      <div class="field"><label>Stage</label><select id="m-stage"><option>New</option><option>Contacted</option><option>Qualified</option><option>Proposal</option><option>Converted</option><option>Lost</option></select></div>
+<!-- ═══ ADD LEAD MODAL ═══ -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Add New Lead</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
     </div>
-    <div class="field" style="margin-top:12px"><label>Notes</label><textarea id="m-notes" placeholder="Source, campaign, or any context..."></textarea></div>
-    <div class="modal-actions">
-      <button class="btn" onclick="closeModal()">Cancel</button>
-      <button class="btn btn-primary" onclick="saveLead()">Save lead</button>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Full Name <span class="required-star">*</span></label>
+          <input class="form-input" id="f-name" placeholder="Student full name">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone <span class="required-star">*</span></label>
+          <input class="form-input" id="f-phone" placeholder="+91 00000 00000" type="tel">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input class="form-input" id="f-email" placeholder="email@example.com" type="email">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Lead Source <span class="required-star">*</span></label>
+          <select class="form-input" id="f-source">
+            <option value="">Select source</option>
+            <option value="Meta Ads">Meta Ads (Facebook)</option>
+            <option value="Instagram Ads">Instagram Ads</option>
+            <option value="Google Ads">Google Ads</option>
+            <option value="WhatsApp">WhatsApp</option>
+            <option value="Referral">Referral</option>
+            <option value="Organic">Organic</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Ad Campaign Name</label>
+          <input class="form-input" id="f-campaign" placeholder="e.g. Summer2024_FB">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Ad Set / Audience</label>
+          <input class="form-input" id="f-adset" placeholder="e.g. 18-25_Kerala">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Course Interest</label>
+          <select class="form-input" id="f-course">
+            <option value="">Select course</option>
+            <option>Digital Marketing</option>
+            <option>Web Development</option>
+            <option>Data Science</option>
+            <option>Graphic Design</option>
+            <option>Business Management</option>
+            <option>English Communication</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Lead Score</label>
+          <select class="form-input" id="f-score">
+            <option value="Hot">🔴 Hot — Ready to enroll</option>
+            <option value="Warm" selected>🟡 Warm — Interested</option>
+            <option value="Cold">🔵 Cold — Just browsing</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Assigned To</label>
+          <select class="form-input" id="f-assign">
+            <option>Admin</option>
+            <option>Rahul K</option>
+            <option>Priya M</option>
+            <option>Arjun S</option>
+            <option>Sana R</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Expected Value (₹)</label>
+          <input class="form-input" id="f-value" placeholder="15000" type="number">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Notes</label>
+        <textarea class="form-input" id="f-notes" placeholder="Call notes, follow-up details, student concerns..."></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="addLead()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Save Lead
+      </button>
     </div>
   </div>
 </div>
  
-<!-- LEAD DETAIL MODAL -->
-<div class="modal-overlay" id="detail-modal">
-  <div class="modal-box" id="detail-content"></div>
-</div>
+<!-- Toast notification -->
+<div class="toast" id="toast"></div>
  
 <script>
-const USERS = {'admin@habili.education':'habili2025','sana@habili.education':'habili2025','arjun@habili.education':'habili2025'};
-const NAMES = {'admin@habili.education':'Admin','sana@habili.education':'Sana K.','arjun@habili.education':'Arjun M.'};
- 
-function doLogin(){
-  const e=document.getElementById('login-email').value.trim();
-  const p=document.getElementById('login-pass').value;
-  const err=document.getElementById('login-err');
-  if(USERS[e]&&USERS[e]===p){
-    err.style.display='none';
-    sessionStorage.setItem('crm-user',e);
-    document.getElementById('login-page').style.display='none';
-    document.getElementById('app').style.display='block';
-    const n=NAMES[e]||'User';
-    document.getElementById('user-name').textContent=n;
-    document.getElementById('user-av').textContent=n.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
-    renderAll();
-  } else {
-    err.style.display='block';
-  }
-}
-function doLogout(){
-  sessionStorage.removeItem('crm-user');
-  document.getElementById('app').style.display='none';
-  document.getElementById('login-page').style.display='flex';
-  document.getElementById('login-pass').value='';
-}
-(function(){if(sessionStorage.getItem('crm-user')){doLogin();}})();
- 
-const stageOrder={New:0,Contacted:1,Qualified:2,Proposal:3,Converted:4,Lost:5};
-const stageColors={New:'#BA7517',Contacted:'#185FA5',Qualified:'#534AB7',Proposal:'#EF9F27',Converted:'#3B6D11',Lost:'#A32D2D'};
-const stageBgC={New:'#FAEEDA',Contacted:'#E6F1FB',Qualified:'#EEEDFE',Proposal:'#FAEEDA',Converted:'#EAF3DE',Lost:'#FCEBEB'};
-const avPalette=[['#E6F1FB','#0C447C'],['#E1F5EE','#085041'],['#EEEDFE','#3C3489'],['#FAECE7','#712B13'],['#FAEEDA','#633806']];
- 
-let leads=[
-  {id:1,name:'Priya Nair',company:'Bloom Retail',email:'priya@bloom.in',phone:'9876501234',channel:'Meta',value:120000,marketer:'Arjun M.',stage:'Converted',notes:'Closed via retargeting campaign.',date:'2025-04-01'},
-  {id:2,name:'Karan Mehta',company:'TechNest',email:'karan@technest.io',phone:'9123456780',channel:'SEO',value:85000,marketer:'Sana K.',stage:'Proposal',notes:'Sent deck on Apr 2.',date:'2025-04-02'},
-  {id:3,name:'Divya Iyer',company:'StyleHub',email:'divya@stylehub.com',phone:'9988776655',channel:'Meta',value:60000,marketer:'Arjun M.',stage:'Qualified',notes:'High-intent lead from TOFU ad.',date:'2025-04-02'},
-  {id:4,name:'Ravi Shankar',company:'GreenMart',email:'ravi@greenmart.co',phone:'9001122334',channel:'SEO',value:45000,marketer:'Sana K.',stage:'Contacted',notes:'Organic blog traffic.',date:'2025-04-03'},
-  {id:5,name:'Meera Pillai',company:'FoodFirst',email:'meera@foodfirst.in',phone:'9765432100',channel:'Meta',value:95000,marketer:'Arjun M.',stage:'New',notes:'Clicked lead-gen ad.',date:'2025-04-03'},
-  {id:6,name:'Suresh Kumar',company:'AutoZone',email:'suresh@autozone.in',phone:'9654321009',channel:'Meta',value:70000,marketer:'Sana K.',stage:'Converted',notes:'Converted after 2 follow-ups.',date:'2025-03-28'},
-  {id:7,name:'Ananya Reddy',company:'EduSpark',email:'ananya@eduspark.io',phone:'9543210098',channel:'SEO',value:55000,marketer:'Arjun M.',stage:'New',notes:'SEO content download.',date:'2025-04-03'},
-  {id:8,name:'Vikram Singh',company:'LogiPro',email:'vikram@logipro.in',phone:'9432100987',channel:'Meta',value:110000,marketer:'Sana K.',stage:'Qualified',notes:'Demo booked.',date:'2025-04-01'},
-  {id:9,name:'Nisha Thomas',company:'HealthPlus',email:'nisha@healthplus.in',phone:'9321009876',channel:'SEO',value:40000,marketer:'Arjun M.',stage:'Contacted',notes:'Form submission via blog.',date:'2025-03-31'},
-  {id:10,name:'Ajay Patel',company:'HomeDeco',email:'ajay@homedeco.in',phone:'9210098765',channel:'Meta',value:80000,marketer:'Sana K.',stage:'Proposal',notes:'Sent proposal Apr 1.',date:'2025-04-01'},
-  {id:11,name:'Lakshmi Rao',company:'CraftBox',email:'lakshmi@craftbox.in',phone:'9100987654',channel:'SEO',value:35000,marketer:'Arjun M.',stage:'New',notes:'Organic search.',date:'2025-04-04'},
-  {id:12,name:'Rohit Verma',company:'TravelEase',email:'rohit@travelease.in',phone:'9009876543',channel:'Meta',value:150000,marketer:'Sana K.',stage:'Converted',notes:'High-value ROAS deal.',date:'2025-03-25'},
-  {id:13,name:'Pooja Joshi',company:'PetPals',email:'pooja@petpals.in',phone:'8998765432',channel:'SEO',value:30000,marketer:'Arjun M.',stage:'Lost',notes:'Went with competitor.',date:'2025-03-30'},
-  {id:14,name:'Deepak Nair',company:'CloudBase',email:'deepak@cloudbase.io',phone:'8987654321',channel:'Meta',value:200000,marketer:'Sana K.',stage:'Qualified',notes:'Enterprise inquiry.',date:'2025-04-02'},
-  {id:15,name:'Sneha Gupta',company:'BakeHouse',email:'sneha@bakehouse.in',phone:'8876543210',channel:'SEO',value:25000,marketer:'Arjun M.',stage:'Contacted',notes:'Blog referral.',date:'2025-04-03'},
-  {id:16,name:'Arun Das',company:'MedTech',email:'arun@medtech.in',phone:'8765432109',channel:'Meta',value:180000,marketer:'Sana K.',stage:'Proposal',notes:'Sent proposal.',date:'2025-04-02'},
-  {id:17,name:'Kavya Menon',company:'LearnAI',email:'kavya@learnai.io',phone:'8654321098',channel:'SEO',value:65000,marketer:'Arjun M.',stage:'New',notes:'Keyword-driven visit.',date:'2025-04-04'},
-  {id:18,name:'Sanjay Roy',company:'PrintFast',email:'sanjay@printfast.in',phone:'8543210987',channel:'Meta',value:42000,marketer:'Sana K.',stage:'Converted',notes:'Quick close.',date:'2025-03-27'},
-  {id:19,name:'Asha Krishnan',company:'WellNest',email:'asha@wellnest.in',phone:'8432109876',channel:'SEO',value:58000,marketer:'Arjun M.',stage:'Qualified',notes:'High-intent SEO lead.',date:'2025-04-01'},
-  {id:20,name:'Nikhil Jain',company:'SolarGen',email:'nikhil@solargen.in',phone:'8321098765',channel:'Meta',value:130000,marketer:'Sana K.',stage:'New',notes:'Meta video ad click.',date:'2025-04-04'},
-  {id:21,name:'Ritu Bhatt',company:'FreshFarm',email:'ritu@freshfarm.in',phone:'8210987654',channel:'SEO',value:22000,marketer:'Arjun M.',stage:'Lost',notes:'Budget constraint.',date:'2025-03-29'},
-  {id:22,name:'Manoj Kumar',company:'BuildIt',email:'manoj@buildit.in',phone:'8109876543',channel:'Meta',value:90000,marketer:'Sana K.',stage:'Contacted',notes:'Follow-up call done.',date:'2025-04-03'},
-  {id:23,name:'Tanya Sharma',company:'GlowSkin',email:'tanya@glowskin.in',phone:'8098765432',channel:'SEO',value:48000,marketer:'Arjun M.',stage:'Proposal',notes:'Proposal sent.',date:'2025-04-02'},
-  {id:24,name:'Rahul Das',company:'SpeedCourier',email:'rahul@speedcourier.in',phone:'7987654321',channel:'Meta',value:75000,marketer:'Sana K.',stage:'New',notes:'Lead magnet download.',date:'2025-04-04'},
+// ═══════════════════════════════════════════════
+// DATA — Replace with Firebase/Supabase calls later
+// ═══════════════════════════════════════════════
+let leads = JSON.parse(localStorage.getItem('habili_leads') || 'null') || [
+  {id:1,name:'Aisha Rahman',phone:'+91 98765 43210',email:'aisha@gmail.com',source:'Meta Ads',campaign:'Summer2024',adset:'18-25_Kerala',course:'Digital Marketing',status:'new',score:'Hot',assigned:'Rahul K',notes:'Called twice, very keen',date:'2024-11-01',value:15000},
+  {id:2,name:'Rohit Sharma',phone:'+91 87654 32109',email:'rohit@email.com',source:'Google Ads',campaign:'WebDev_Oct',adset:'all_ages',course:'Web Development',status:'contacted',score:'Warm',assigned:'Priya M',notes:'Follow up on Monday',date:'2024-11-02',value:25000},
+  {id:3,name:'Fatima Noor',phone:'+91 76543 21098',email:'fatima@gmail.com',source:'Instagram Ads',campaign:'Design_Nov',adset:'female_18-30',course:'Graphic Design',status:'qualified',score:'Hot',assigned:'Admin',notes:'Wants EMI option',date:'2024-11-03',value:12000},
+  {id:4,name:'Karthik Menon',phone:'+91 65432 10987',email:'karthik@mail.com',source:'Referral',campaign:'',adset:'',course:'Data Science',status:'enrolled',score:'Hot',assigned:'Arjun S',notes:'Full payment made',date:'2024-10-28',value:30000},
+  {id:5,name:'Priya Das',phone:'+91 54321 09876',email:'priya@email.com',source:'Meta Ads',campaign:'BizMgmt_Nov',adset:'25-40_professional',course:'Business Management',status:'new',score:'Cold',assigned:'Priya M',notes:'Budget concern',date:'2024-11-04',value:18000},
+  {id:6,name:'Arjun Pillai',phone:'+91 43210 98765',email:'arjun@gmail.com',source:'WhatsApp',campaign:'',adset:'',course:'English Communication',status:'contacted',score:'Warm',assigned:'Rahul K',notes:'Scheduled demo call',date:'2024-11-04',value:8000},
+  {id:7,name:'Sneha Iyer',phone:'+91 32109 87654',email:'sneha@mail.com',source:'Google Ads',campaign:'DigiMkt_Oct',adset:'all_ages',course:'Digital Marketing',status:'enrolled',score:'Hot',assigned:'Admin',notes:'Start date 15th Nov',date:'2024-10-25',value:15000},
+  {id:8,name:'Mohammed Ali',phone:'+91 21098 76543',email:'mali@email.com',source:'Meta Ads',campaign:'WebDev_Oct',adset:'male_20-35',course:'Web Development',status:'lost',score:'Cold',assigned:'Arjun S',notes:'Joined competitor',date:'2024-10-20',value:25000},
+  {id:9,name:'Divya Kumar',phone:'+91 10987 65432',email:'divya@gmail.com',source:'Instagram Ads',campaign:'Design_Nov',adset:'female_18-30',course:'Graphic Design',status:'qualified',score:'Warm',assigned:'Priya M',notes:'Asking about EMI',date:'2024-11-05',value:12000},
+  {id:10,name:'Sanjay Verma',phone:'+91 98765 12345',email:'sanjay@mail.com',source:'Organic',campaign:'',adset:'',course:'Data Science',status:'contacted',score:'Cold',assigned:'Rahul K',notes:'Found via blog post',date:'2024-11-05',value:30000},
+  {id:11,name:'Lakshmi Nair',phone:'+91 87654 23456',email:'lakshmi@email.com',source:'Meta Ads',campaign:'Summer2024',adset:'18-25_Kerala',course:'English Communication',status:'new',score:'Warm',assigned:'Admin',notes:'',date:'2024-11-06',value:8000},
+  {id:12,name:'Vijay Krishnan',phone:'+91 76543 34567',email:'vijay@gmail.com',source:'Referral',campaign:'',adset:'',course:'Business Management',status:'enrolled',score:'Hot',assigned:'Priya M',notes:'Referred by Karthik Menon',date:'2024-11-01',value:18000},
 ];
-let nextId=25;
-let editingId=null;
  
-function initials(n){return n.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();}
-function av(name,idx,size=28){const [bg,tc]=avPalette[idx%avPalette.length];return `<div class="avatar" style="width:${size}px;height:${size}px;background:${bg};color:${tc};font-size:${size<=28?11:14}px">${initials(name)}</div>`;}
-function fmtVal(v){return '₹'+Math.round(v/1000)+'K';}
-function badge(s){const cls=s.toLowerCase().replace(' ','-');return `<span class="badge b-${cls}" style="background:${stageBgC[s]||'#F1EFE8'};color:${stageColors[s]||'#5F5E5A'}">${s}</span>`;}
-function chBadge(c){return `<span class="badge ${c==='Meta'?'b-meta':'b-seo'}">${c}</span>`;}
+let currentFilter = 'all';
+let nextId = Math.max(...leads.map(l=>l.id)) + 1;
  
-function stageCounts(){
-  const c={New:0,Contacted:0,Qualified:0,Proposal:0,Converted:0,Lost:0};
-  leads.forEach(l=>{if(c[l.stage]!==undefined)c[l.stage]++;});
-  return c;
+function saveData() {
+  localStorage.setItem('habili_leads', JSON.stringify(leads));
 }
  
-function renderAll(){renderDash();renderPipeline();renderLeads();renderConversions();renderActivity();renderReports();}
- 
-function renderDash(){
-  const c=stageCounts();
-  const conv=leads.filter(l=>l.stage==='Converted');
-  const cvr=leads.length?Math.round(conv.length/leads.length*100):0;
-  const pipe=leads.filter(l=>l.stage!=='Lost'&&l.stage!=='Converted').reduce((a,l)=>a+l.value,0);
-  const rev=conv.reduce((a,l)=>a+l.value,0);
-  document.getElementById('d-total').textContent=leads.length;
-  document.getElementById('d-cvr').textContent=cvr+'%';
-  document.getElementById('d-pipe').textContent='₹'+Math.round(pipe/100000*10)/10+'L';
-  document.getElementById('d-rev').textContent='₹'+Math.round(rev/100000*10)/10+'L';
- 
-  const stages=['New','Contacted','Qualified','Proposal','Converted'];
-  const max=leads.length||1;
-  document.getElementById('dash-funnel').innerHTML=stages.map(s=>`
-    <div class="funnel-bar"><div class="funnel-bar-label"><span>${s}</span><span>${c[s]} leads</span></div>
-    <div class="funnel-track"><div class="funnel-fill" style="width:${Math.round(c[s]/max*100)}%;background:${stageColors[s]}"></div></div></div>`).join('');
- 
-  const meta=leads.filter(l=>l.channel==='Meta');
-  const seo=leads.filter(l=>l.channel==='SEO');
-  document.getElementById('dash-channel').innerHTML=[
-    {label:'Meta Ads',count:meta.length,color:'#378ADD'},
-    {label:'SEO / Organic',count:seo.length,color:'#3B6D11'}
-  ].map(r=>`<div class="conv-row"><div style="display:flex;align-items:center;gap:8px"><div style="width:10px;height:10px;border-radius:2px;background:${r.color}"></div><span style="font-size:13px">${r.label}</span></div>
-    <div style="text-align:right"><span style="font-weight:600;font-size:14px">${r.count}</span> <span style="font-size:12px;color:var(--text-secondary)">leads (${Math.round(r.count/leads.length*100)}%)</span></div></div>`).join('');
- 
-  const recent=[...leads].sort((a,b)=>b.id-a.id).slice(0,5);
-  document.getElementById('dash-recent').innerHTML=recent.map((l,i)=>`
-    <div class="lead-mini" onclick="openDetail(${l.id})">
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">${av(l.name,i)}<div><div style="font-size:13px;font-weight:600">${l.name}</div><div style="font-size:11px;color:var(--text-secondary)">${l.company}</div></div></div>
-      <div style="display:flex;gap:6px;align-items:center">${chBadge(l.channel)} ${badge(l.stage)} <span style="margin-left:auto;font-size:12px;font-weight:600">${fmtVal(l.value)}</span></div>
-    </div>`).join('');
- 
-  const marketers={};
-  leads.forEach(l=>{if(!marketers[l.marketer])marketers[l.marketer]={total:0,conv:0};marketers[l.marketer].total++;if(l.stage==='Converted')marketers[l.marketer].conv++;});
-  document.getElementById('dash-marketers').innerHTML=Object.entries(marketers).map(([n,d])=>`
-    <div class="conv-row"><span style="font-size:13px">${n}</span>
-    <div style="text-align:right"><div style="font-size:13px;font-weight:600">${d.conv} / ${d.total} converted</div><div style="font-size:11px;color:var(--text-secondary)">${Math.round(d.conv/d.total*100)}% CVR</div></div></div>`).join('');
-}
- 
-function renderPipeline(){
-  const c=stageCounts();
-  const stagesF=['New','Contacted','Qualified','Proposal','Converted'];
-  const vals={New:0,Contacted:0,Qualified:0,Proposal:0,Converted:0};
-  leads.forEach(l=>{if(vals[l.stage]!==undefined)vals[l.stage]+=l.value;});
-  document.getElementById('pipeline-stages').innerHTML=stagesF.map(s=>`
-    <div class="stage-box s-${s.toLowerCase()}">
-      <div class="stage-name">${s}</div>
-      <div class="stage-num">${c[s]}</div>
-      <div class="stage-val">${fmtVal(vals[s])}</div>
-    </div>`).join('');
- 
-  const recent=[...leads].sort((a,b)=>b.id-a.id).slice(0,8);
-  document.getElementById('pipeline-cards').innerHTML=recent.map((l,i)=>`
-    <div class="lead-mini" onclick="openDetail(${l.id})">
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">${av(l.name,i)}<div><div style="font-size:13px;font-weight:600">${l.name}</div><div style="font-size:11px;color:var(--text-secondary)">${l.company} · ${l.marketer}</div></div></div>
-      <div style="display:flex;gap:6px;align-items:center">${chBadge(l.channel)} ${badge(l.stage)} <span style="margin-left:auto;font-size:12px;font-weight:600">${fmtVal(l.value)}</span></div>
-    </div>`).join('');
- 
-  const max=leads.length||1;
-  document.getElementById('pipe-funnel').innerHTML=stagesF.map(s=>`
-    <div class="funnel-bar"><div class="funnel-bar-label"><span>${s}</span><span>${c[s]} leads · ${fmtVal(vals[s])}</span></div>
-    <div class="funnel-track"><div class="funnel-fill" style="width:${Math.round(c[s]/max*100)}%;background:${stageColors[s]}"></div></div></div>`).join('');
-}
- 
-function renderLeads(){
-  const search=(document.getElementById('f-search')?.value||'').toLowerCase();
-  const fStage=document.getElementById('f-stage')?.value||'';
-  const fCh=document.getElementById('f-channel')?.value||'';
-  const fMk=document.getElementById('f-marketer')?.value||'';
-  const filtered=leads.filter(l=>{
-    if(fStage&&l.stage!==fStage)return false;
-    if(fCh&&l.channel!==fCh)return false;
-    if(fMk&&l.marketer!==fMk)return false;
-    if(search&&!l.name.toLowerCase().includes(search)&&!l.company.toLowerCase().includes(search))return false;
-    return true;
-  });
-  const el=document.getElementById('leads-count');
-  if(el)el.textContent=filtered.length+' leads';
-  const pct=s=>Math.round((stageOrder[s]||0)/4*100);
-  document.getElementById('leads-tbody').innerHTML=filtered.map((l,i)=>`
-    <tr onclick="openDetail(${l.id})">
-      <td style="padding-left:16px"><div style="display:flex;align-items:center;gap:8px">${av(l.name,i)}<div><div style="font-weight:600">${l.name}</div><div style="font-size:11px;color:var(--text-secondary)">${l.company}</div></div></div></td>
-      <td>${chBadge(l.channel)}</td>
-      <td>${badge(l.stage)}</td>
-      <td style="font-weight:600">${fmtVal(l.value)}</td>
-      <td style="color:var(--text-secondary)">${l.marketer}</td>
-      <td style="color:var(--text-secondary)">${l.date}</td>
-      <td><div class="progress-bar"><div class="progress-fill" style="width:${pct(l.stage)}%;background:${stageColors[l.stage]}"></div></div></td>
-      <td><button class="btn" style="font-size:11px;padding:4px 10px" onclick="event.stopPropagation();editLead(${l.id})">Edit</button></td>
-    </tr>`).join('');
-}
- 
-function renderConversions(){
-  const conv=leads.filter(l=>l.stage==='Converted');
-  const meta=conv.filter(l=>l.channel==='Meta');
-  const seo=conv.filter(l=>l.channel==='SEO');
-  const rev=conv.reduce((a,l)=>a+l.value,0);
-  document.getElementById('cv-count').textContent=conv.length;
-  document.getElementById('cv-rev').textContent='₹'+Math.round(rev/100000*10)/10+'L';
-  document.getElementById('cv-meta').textContent=meta.length;
-  document.getElementById('cv-seo').textContent=seo.length;
- 
-  document.getElementById('conv-channel').innerHTML=[
-    {label:'Meta Ads',arr:meta,color:'#378ADD'},
-    {label:'SEO / Organic',arr:seo,color:'#3B6D11'}
-  ].map(r=>`<div class="conv-row"><div style="display:flex;align-items:center;gap:8px"><div style="width:10px;height:10px;border-radius:2px;background:${r.color}"></div><span style="font-size:13px">${r.label}</span></div>
-    <div style="text-align:right"><div style="font-weight:600">${r.arr.length} deals</div><div style="font-size:11px;color:var(--text-secondary)">${fmtVal(r.arr.reduce((a,l)=>a+l.value,0))}</div></div></div>`).join('');
- 
-  const mkt={};
-  conv.forEach(l=>{mkt[l.marketer]=(mkt[l.marketer]||0)+1;});
-  document.getElementById('conv-marketer').innerHTML=Object.entries(mkt).map(([n,c])=>`
-    <div class="conv-row"><span style="font-size:13px">${n}</span>
-    <div style="text-align:right"><div style="font-weight:600">${c} conversions</div><div style="font-size:11px;color:var(--text-secondary)">${Math.round(c/conv.length*100)}% share</div></div></div>`).join('');
- 
-  document.getElementById('conv-tbody').innerHTML=conv.map(l=>`
-    <tr><td><div style="font-weight:600">${l.name}</div><div style="font-size:11px;color:var(--text-secondary)">${l.company}</div></td>
-    <td>${chBadge(l.channel)}</td><td style="font-weight:600">${fmtVal(l.value)}</td>
-    <td>${l.marketer}</td><td style="color:var(--text-secondary)">${l.date}</td></tr>`).join('');
-}
- 
-function renderActivity(){
-  const acts=[
-    {text:'Priya Nair (Bloom Retail) converted — ₹1.2L deal closed',color:'#3B6D11',time:'Today, 10:02 AM',by:'Arjun M.'},
-    {text:'Karan Mehta moved to Proposal stage',color:'#854F0B',time:'Today, 9:45 AM',by:'Sana K.'},
-    {text:'New lead added: Rahul Das (SpeedCourier) via Meta',color:'#185FA5',time:'Today, 9:10 AM',by:'Sana K.'},
-    {text:'Kavya Menon added from SEO organic visit',color:'#3B6D11',time:'Today, 8:55 AM',by:'Arjun M.'},
-    {text:'Nikhil Jain (SolarGen) — follow-up call scheduled',color:'#534AB7',time:'Yesterday, 5:30 PM',by:'Sana K.'},
-    {text:'Deepak Nair moved to Qualified — demo booked',color:'#534AB7',time:'Yesterday, 4:10 PM',by:'Sana K.'},
-    {text:'Proposal sent to Arun Das (MedTech)',color:'#854F0B',time:'Yesterday, 2:00 PM',by:'Sana K.'},
-    {text:'Pooja Joshi (PetPals) marked as Lost',color:'#A32D2D',time:'Mar 30, 11:00 AM',by:'Arjun M.'},
-    {text:'Suresh Kumar (AutoZone) converted — ₹70K deal',color:'#3B6D11',time:'Mar 28, 3:45 PM',by:'Sana K.'},
-    {text:'Rohit Verma (TravelEase) converted — ₹1.5L deal',color:'#3B6D11',time:'Mar 25, 1:20 PM',by:'Sana K.'},
-  ];
-  document.getElementById('activity-list').innerHTML=acts.map(a=>`
-    <div class="activity-row"><div class="act-dot" style="background:${a.color}"></div>
-    <div><div class="act-text">${a.text}</div><div class="act-meta">${a.time} · ${a.by}</div></div></div>`).join('');
-}
- 
-function renderReports(){
-  document.getElementById('r-budget').innerHTML=`
-    <div class="funnel-bar"><div class="funnel-bar-label"><span>Meta Ads (₹1.3L)</span><span>65%</span></div><div class="funnel-track"><div class="funnel-fill" style="width:65%;background:#378ADD"></div></div></div>
-    <div class="funnel-bar"><div class="funnel-bar-label"><span>SEO / Content (₹50K)</span><span>25%</span></div><div class="funnel-track"><div class="funnel-fill" style="width:25%;background:#3B6D11"></div></div></div>
-    <div class="funnel-bar"><div class="funnel-bar-label"><span>Tools & tracking (₹20K)</span><span>10%</span></div><div class="funnel-track"><div class="funnel-fill" style="width:10%;background:#888780"></div></div></div>`;
-  document.getElementById('r-quality').innerHTML=`
-    <div class="conv-row"><span>Meta Ads</span><div><div style="font-weight:600">62% of leads</div><div style="font-size:11px;color:var(--text-secondary)">₹310 avg CPL · 4.2x ROAS</div></div></div>
-    <div class="conv-row"><span>SEO / Organic</span><div><div style="font-weight:600">38% of leads</div><div style="font-size:11px;color:var(--text-secondary)">₹168 avg CPL · 3.1x ROAS</div></div></div>`;
-  const conv=leads.filter(l=>l.stage==='Converted');
-  document.getElementById('r-apr-leads').textContent=leads.length;
-  document.getElementById('r-apr-conv').textContent=conv.length;
-  document.getElementById('r-apr-cvr').textContent=leads.length?Math.round(conv.length/leads.length*100)+'%':'0%';
-}
- 
-function showTab(name,el){
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-  document.getElementById('tab-'+name).classList.add('active');
-  if(el)el.classList.add('active');
-  closeModal();
-  document.getElementById('detail-modal').classList.remove('open');
-}
- 
-function openAddModal(){
-  editingId=null;
-  document.getElementById('modal-title').textContent='Add new lead';
-  ['m-name','m-company','m-email','m-phone','m-value','m-marketer','m-notes'].forEach(id=>{document.getElementById(id).value='';});
-  document.getElementById('m-channel').value='Meta';
-  document.getElementById('m-stage').value='New';
-  document.getElementById('lead-modal').classList.add('open');
-}
- 
-function editLead(id){
-  const l=leads.find(x=>x.id===id);
-  if(!l)return;
-  editingId=id;
-  document.getElementById('modal-title').textContent='Edit lead';
-  document.getElementById('m-name').value=l.name;
-  document.getElementById('m-company').value=l.company;
-  document.getElementById('m-email').value=l.email;
-  document.getElementById('m-phone').value=l.phone;
-  document.getElementById('m-channel').value=l.channel;
-  document.getElementById('m-value').value=l.value;
-  document.getElementById('m-marketer').value=l.marketer;
-  document.getElementById('m-stage').value=l.stage;
-  document.getElementById('m-notes').value=l.notes;
-  document.getElementById('lead-modal').classList.add('open');
-}
- 
-function saveLead(){
-  const name=document.getElementById('m-name').value.trim();
-  if(!name){alert('Client name is required.');return;}
-  const data={name,company:document.getElementById('m-company').value.trim(),email:document.getElementById('m-email').value.trim(),phone:document.getElementById('m-phone').value.trim(),channel:document.getElementById('m-channel').value,value:parseInt(document.getElementById('m-value').value)||0,marketer:document.getElementById('m-marketer').value.trim()||'Unassigned',stage:document.getElementById('m-stage').value,notes:document.getElementById('m-notes').value.trim(),date:new Date().toISOString().slice(0,10)};
-  if(editingId){
-    const idx=leads.findIndex(l=>l.id===editingId);
-    if(idx>-1)leads[idx]={...leads[idx],...data};
-  } else {
-    leads.unshift({id:nextId++,...data});
-  }
-  closeModal();
+// ═══════════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════════
+function showPage(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  const navItem = document.querySelector(`[data-page="${page}"]`);
+  if (navItem) navItem.classList.add('active');
+  const titles = {dashboard:'Dashboard',leads:'All Leads',pipeline:'Lead Pipeline',analytics:'Analytics'};
+  document.getElementById('page-title').textContent = titles[page] || page;
+  if (window.innerWidth <= 680) closeSidebar();
   renderAll();
 }
  
-function closeModal(){document.getElementById('lead-modal').classList.remove('open');editingId=null;}
- 
-function openDetail(id){
-  const l=leads.find(x=>x.id===id);
-  if(!l)return;
-  const nextSteps={
-    New:['Send a personalised intro email within 24 hrs','Move to Contacted once outreach is done','Follow up via WhatsApp if no reply in 48 hrs','Qualify with 3 discovery questions on budget & timeline'],
-    Contacted:['Schedule a discovery call this week','Send a relevant case study to build trust','Qualify budget, decision-maker, and timeline','Move to Qualified if they meet your ICP criteria'],
-    Qualified:['Prepare a tailored proposal based on their goals','Book a demo or walkthrough call','Address any objections raised in discovery','Set a clear follow-up date and next action'],
-    Proposal:['Follow up 2 days after proposal was sent','Answer any questions or objections promptly','Negotiate terms if needed — know your floor price','Get a verbal commitment before final paperwork'],
-    Converted:['Send onboarding docs and welcome email','Schedule kickoff call within 3 days','Set campaign KPIs and reporting cadence','Request a referral or testimonial after 30 days'],
-    Lost:['Log the reason for loss for future reference','Add to a nurture sequence for 3–6 months later','Analyse what could have been done differently','Check back in after 2–3 months — situations change'],
-  };
-  const steps=(nextSteps[l.stage]||[]).map((s,i)=>`<div class="step-item"><div class="step-num">${i+1}</div><div><div class="step-title">${s}</div></div></div>`).join('');
-  document.getElementById('detail-content').innerHTML=`
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:8px">
-      <div style="display:flex;align-items:center;gap:12px">
-        <div class="avatar" style="width:44px;height:44px;background:${avPalette[l.id%5][0]};color:${avPalette[l.id%5][1]};font-size:15px;font-weight:700">${initials(l.name)}</div>
-        <div><div style="font-size:17px;font-weight:700">${l.name}</div><div style="font-size:13px;color:var(--text-secondary)">${l.company}</div></div>
-      </div>
-      <div style="display:flex;gap:6px;align-items:center">${chBadge(l.channel)} ${badge(l.stage)}</div>
-    </div>
-    <div class="detail-grid">
-      <div class="detail-field"><div class="dl">Deal value</div><div class="dv">₹${l.value.toLocaleString()}</div></div>
-      <div class="detail-field"><div class="dl">Marketer</div><div class="dv">${l.marketer}</div></div>
-      <div class="detail-field"><div class="dl">Email</div><div class="dv" style="color:#185FA5">${l.email||'—'}</div></div>
-      <div class="detail-field"><div class="dl">Phone</div><div class="dv">${l.phone||'—'}</div></div>
-      <div class="detail-field"><div class="dl">Lead source</div><div class="dv">${l.notes||'—'}</div></div>
-      <div class="detail-field"><div class="dl">Date added</div><div class="dv">${l.date}</div></div>
-    </div>
-    <hr style="border:none;border-top:0.5px solid var(--border-light);margin:14px 0">
-    <div style="font-size:14px;font-weight:700;margin-bottom:10px">Next steps for "${l.stage}" stage</div>
-    ${steps}
-    <div style="display:flex;gap:8px;margin-top:1.25rem;flex-wrap:wrap">
-      <button class="btn btn-primary" onclick="editLead(${l.id});document.getElementById('detail-modal').classList.remove('open')">Edit lead</button>
-      <button class="btn" onclick="document.getElementById('detail-modal').classList.remove('open')">Close</button>
-    </div>`;
-  document.getElementById('detail-modal').classList.add('open');
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebar-overlay').classList.toggle('show');
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebar-overlay').classList.remove('show');
 }
  
-document.getElementById('lead-modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
-document.getElementById('detail-modal').addEventListener('click',function(e){if(e.target===this)this.classList.remove('open');});
+// ═══════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════
+function srcTag(source) {
+  const map = {'Meta Ads':'meta','Google Ads':'google','Instagram Ads':'instagram','WhatsApp':'whatsapp','Referral':'referral','Organic':'organic'};
+  const cls = map[source] || 'organic';
+  return `<span class="tag ${cls}">${source}</span>`;
+}
+function scoreTag(score) {
+  const cls = {Hot:'hot',Warm:'warm',Cold:'cold'}[score] || 'cold';
+  const emoji = {Hot:'🔴',Warm:'🟡',Cold:'🔵'}[score] || '';
+  return `<span class="tag ${cls}">${emoji} ${score}</span>`;
+}
+function statusBadge(status) {
+  return `<span class="status-badge ${status}">${status.charAt(0).toUpperCase()+status.slice(1)}</span>`;
+}
+const avatarColors = ['#4F8EF7','#7C3AED','#22C55E','#F59E0B','#EC4899','#EF4444','#14B8A6'];
+function avatarColor(name) { return avatarColors[name.charCodeAt(0) % avatarColors.length]; }
+function avatarInitials(name) { return name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase(); }
+function fmtDate(d) { return new Date(d).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}); }
+function fmtVal(v) { return '₹' + Number(v||0).toLocaleString('en-IN'); }
+ 
+// ═══════════════════════════════════════════════
+// TOAST
+// ═══════════════════════════════════════════════
+function showToast(msg, type='success') {
+  const t = document.getElementById('toast');
+  t.textContent = (type==='success'?'✓ ':type==='error'?'✕ ':'') + msg;
+  t.className = 'toast show ' + type;
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+ 
+// ═══════════════════════════════════════════════
+// DASHBOARD
+// ═══════════════════════════════════════════════
+function renderDashboard() {
+  const total = leads.length;
+  const enrolled = leads.filter(l=>l.status==='enrolled').length;
+  const lost = leads.filter(l=>l.status==='lost').length;
+  const active = leads.filter(l=>!['enrolled','lost'].includes(l.status)).length;
+  const revenue = leads.filter(l=>l.status==='enrolled').reduce((a,b)=>a+(Number(b.value)||0),0);
+  const now = new Date();
+  const thisMonth = leads.filter(l=>{const d=new Date(l.date);return d.getMonth()===now.getMonth()&&d.getFullYear()===now.getFullYear();}).length;
+  const rate = total ? Math.round(enrolled/total*100) : 0;
+ 
+  document.getElementById('stat-total').textContent = total;
+  document.getElementById('stat-enrolled').textContent = enrolled;
+  document.getElementById('stat-pipeline').textContent = active;
+  document.getElementById('stat-revenue').textContent = fmtVal(revenue);
+  document.getElementById('stat-month').textContent = thisMonth;
+  document.getElementById('stat-rate').textContent = rate + '%';
+  document.getElementById('new-badge').textContent = leads.filter(l=>l.status==='new').length;
+ 
+  // Bar chart (last 6 months mock + real)
+  const months = ['Jun','Jul','Aug','Sep','Oct','Nov'];
+  const leadsData = [14,19,22,26,31,total];
+  const enrollData = [5,8,9,11,12,enrolled];
+  const maxVal = Math.max(...leadsData,1);
+  document.getElementById('bar-chart').innerHTML = months.map((m,i) => `
+    <div class="bar-wrap">
+      <div class="bar-val">${leadsData[i]}</div>
+      <div class="bar-inner">
+        <div class="bar accent" style="height:${Math.round(leadsData[i]/maxVal*110)}px"></div>
+        <div class="bar green" style="height:${Math.round(enrollData[i]/maxVal*110)}px"></div>
+      </div>
+      <div class="bar-label">${m}</div>
+    </div>`).join('');
+ 
+  // Source donut
+  const sources = {};
+  leads.forEach(l => { sources[l.source] = (sources[l.source]||0)+1; });
+  const srcEntries = Object.entries(sources).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  const srcColors = ['#4F8EF7','#7C3AED','#22C55E','#F59E0B','#EC4899'];
+  const tot2 = srcEntries.reduce((a,b)=>a+b[1],0) || 1;
+  const r=45,cx=60,cy=60,circ=2*Math.PI*r;
+  let offset=0;
+  const slices = srcEntries.map((e,i) => {
+    const frac=e[1]/tot2, dash=frac*circ, gap=circ-dash, rot=offset*360;
+    offset+=frac;
+    return `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${srcColors[i]}" stroke-width="18" stroke-dasharray="${dash.toFixed(1)} ${gap.toFixed(1)}" stroke-dashoffset="${(circ/4).toFixed(1)}" transform="rotate(${rot.toFixed(1)} ${cx} ${cy})"/>`;
+  }).join('');
+  const legendHtml = srcEntries.map((e,i) => `
+    <div class="donut-legend-item">
+      <div class="donut-dot" style="background:${srcColors[i]}"></div>
+      <span class="donut-label">${e[0]}</span>
+      <span class="donut-val">${e[1]}</span>
+    </div>`).join('');
+  document.getElementById('source-donut').innerHTML = `
+    <div class="donut-wrap">
+      <svg width="120" height="120" viewBox="0 0 120 120">
+        <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="var(--bg4)" stroke-width="18"/>
+        ${slices}
+        <text x="${cx}" y="${cy-6}" text-anchor="middle" fill="var(--text)" font-size="18" font-weight="700" font-family="var(--font)">${total}</text>
+        <text x="${cx}" y="${cy+12}" text-anchor="middle" fill="var(--text3)" font-size="10" font-family="var(--font)">total</text>
+      </svg>
+      <div class="donut-legend">${legendHtml}</div>
+    </div>`;
+ 
+  // Recent leads
+  const recent = [...leads].sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,6);
+  document.getElementById('recent-tbody').innerHTML = recent.length ? recent.map(l => `
+    <tr>
+      <td><div class="name-cell">
+        <div class="avatar-sm" style="background:${avatarColor(l.name)}">${avatarInitials(l.name)}</div>
+        <div><div style="font-weight:600">${l.name}</div><div style="font-size:11px;color:var(--text3)">${l.email||l.phone}</div></div>
+      </div></td>
+      <td>${srcTag(l.source)}</td>
+      <td style="color:var(--text2)">${l.course||'—'}</td>
+      <td>${statusBadge(l.status)}</td>
+      <td>${scoreTag(l.score)}</td>
+      <td style="color:var(--text3);font-size:12px">${fmtDate(l.date)}</td>
+      <td>
+        <select class="inline-select" onchange="updateStatus(${l.id},this.value)">
+          ${['new','contacted','qualified','enrolled','lost'].map(s=>`<option value="${s}"${l.status===s?' selected':''}>${s.charAt(0).toUpperCase()+s.slice(1)}</option>`).join('')}
+        </select>
+      </td>
+    </tr>`).join('') : `<tr><td colspan="7"><div class="empty-state"><p>No leads yet. Click "Add Lead" to get started.</p></div></td></tr>`;
+}
+ 
+// ═══════════════════════════════════════════════
+// LEADS TABLE
+// ═══════════════════════════════════════════════
+function renderLeads() {
+  let filtered = leads;
+  if (currentFilter !== 'all') filtered = leads.filter(l=>l.status===currentFilter);
+  const search = (document.getElementById('search-input').value||'').toLowerCase();
+  if (search) filtered = filtered.filter(l =>
+    l.name.toLowerCase().includes(search) ||
+    l.phone.includes(search) ||
+    (l.email||'').toLowerCase().includes(search) ||
+    (l.campaign||'').toLowerCase().includes(search)
+  );
+ 
+  document.getElementById('leads-tbody').innerHTML = filtered.length ? filtered.map(l => `
+    <tr>
+      <td><div class="name-cell">
+        <div class="avatar-sm" style="background:${avatarColor(l.name)}">${avatarInitials(l.name)}</div>
+        <div><div style="font-weight:600">${l.name}</div><div style="font-size:11px;color:var(--text3)">${l.email||''}</div></div>
+      </div></td>
+      <td style="font-size:12px;color:var(--text2)">${l.phone}</td>
+      <td>${srcTag(l.source)}</td>
+      <td style="font-size:12px;color:var(--text3)">${l.campaign||'—'}</td>
+      <td style="color:var(--text2)">${l.course||'—'}</td>
+      <td>
+        <select class="inline-select" onchange="updateStatus(${l.id},this.value)">
+          ${['new','contacted','qualified','enrolled','lost'].map(s=>`<option value="${s}"${l.status===s?' selected':''}>${s.charAt(0).toUpperCase()+s.slice(1)}</option>`).join('')}
+        </select>
+      </td>
+      <td>${scoreTag(l.score)}</td>
+      <td style="font-size:12px;color:var(--text2)">${l.assigned}</td>
+      <td style="font-size:12px;color:var(--text3)">${fmtDate(l.date)}</td>
+      <td style="display:flex;gap:5px;align-items:center">
+        <button class="del-btn" onclick="deleteLead(${l.id})">Delete</button>
+      </td>
+    </tr>`).join('') : `<tr><td colspan="10"><div class="empty-state"><h3>No leads found</h3><p>Try a different filter or search term.</p></div></td></tr>`;
+}
+ 
+// ═══════════════════════════════════════════════
+// PIPELINE
+// ═══════════════════════════════════════════════
+function renderPipeline() {
+  const stages = [
+    {key:'new',label:'New Leads',cls:'new'},
+    {key:'contacted',label:'Contacted',cls:'contacted'},
+    {key:'qualified',label:'Qualified',cls:'qualified'},
+    {key:'demo',label:'Demo / Meeting',cls:'demo'},
+    {key:'enrolled',label:'Enrolled',cls:'enrolled'},
+  ];
+  document.getElementById('pipeline-board').innerHTML = stages.map(stage => {
+    const stageLeads = leads.filter(l => {
+      if (stage.key==='demo') return l.status==='qualified' && l.score==='Hot';
+      return l.status===stage.key;
+    });
+    const stageRevenue = stageLeads.reduce((a,b)=>a+(Number(b.value)||0),0);
+    return `
+      <div class="pipe-col">
+        <div class="pipe-header">
+          <div class="pipe-title">${stage.label}</div>
+          <div class="pipe-count ${stage.cls}">${stageLeads.length}</div>
+        </div>
+        <div style="font-size:11px;color:var(--text3);margin-bottom:12px">${fmtVal(stageRevenue)} potential</div>
+        ${stageLeads.length ? stageLeads.map(l => `
+          <div class="lead-card" title="${l.notes||'No notes'}">
+            <div class="lead-name">${l.name}</div>
+            <div class="lead-meta">${l.course||'No course specified'}</div>
+            <div class="lead-tags">
+              ${srcTag(l.source)}
+              ${scoreTag(l.score)}
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-top:6px">
+              <div class="lead-value">${fmtVal(l.value)}</div>
+              <div style="font-size:10px;color:var(--text3)">${l.assigned}</div>
+            </div>
+          </div>`).join('') : `<div style="text-align:center;padding:24px 0;color:var(--text3);font-size:12px">No leads here</div>`}
+      </div>`;
+  }).join('');
+}
+ 
+// ═══════════════════════════════════════════════
+// ANALYTICS
+// ═══════════════════════════════════════════════
+function renderAnalytics() {
+  const total = leads.length || 1;
+  const enrolled = leads.filter(l=>l.status==='enrolled').length;
+  const lost = leads.filter(l=>l.status==='lost').length;
+  const revenue = leads.filter(l=>l.status==='enrolled').reduce((a,b)=>a+(Number(b.value)||0),0);
+  const convRate = Math.round(enrolled/total*100);
+  const lossRate = Math.round(lost/total*100);
+ 
+  document.getElementById('an-conv').textContent = convRate+'%';
+  document.getElementById('an-conv-bar').style.width = convRate+'%';
+  document.getElementById('an-loss').textContent = lossRate+'%';
+  document.getElementById('an-loss-bar').style.width = lossRate+'%';
+  document.getElementById('an-rev').textContent = fmtVal(revenue);
+ 
+  // Source performance
+  const sources = {};
+  leads.forEach(l => {
+    if (!sources[l.source]) sources[l.source]={total:0,enrolled:0};
+    sources[l.source].total++;
+    if (l.status==='enrolled') sources[l.source].enrolled++;
+  });
+  const srcColors = ['#4F8EF7','#7C3AED','#22C55E','#F59E0B','#EC4899'];
+  const srcRows = Object.entries(sources).sort((a,b)=>b[1].total-a[1].total).map(([src,data],i) => {
+    const cr = Math.round(data.enrolled/data.total*100);
+    const crColor = cr>=30?'var(--green)':cr>=15?'var(--amber)':'var(--red)';
+    return `<div class="source-row">
+      <div class="source-name">${src}</div>
+      <div class="source-bar-wrap"><div class="source-bar-fill" style="width:${data.total/total*100}%;background:${srcColors[i%5]}"></div></div>
+      <div class="source-count">${data.total}</div>
+      <div class="source-rate" style="color:${crColor}">${cr}%</div>
+    </div>`;
+  }).join('');
+  document.getElementById('source-performance').innerHTML = srcRows || '<p style="color:var(--text3);font-size:13px">No data yet</p>';
+ 
+  // Team performance
+  const team = {};
+  leads.forEach(l => {
+    if (!team[l.assigned]) team[l.assigned]={total:0,enrolled:0};
+    team[l.assigned].total++;
+    if (l.status==='enrolled') team[l.assigned].enrolled++;
+  });
+  const teamRows = Object.entries(team).sort((a,b)=>b[1].total-a[1].total).map(([name,data]) => {
+    const cr = Math.round(data.enrolled/data.total*100);
+    const crColor = cr>=30?'var(--green)':cr>=15?'var(--amber)':'var(--red)';
+    return `<div class="source-row">
+      <div style="display:flex;align-items:center;gap:8px;min-width:90px">
+        <div class="avatar-sm" style="background:${avatarColor(name)};width:26px;height:26px;font-size:10px">${avatarInitials(name)}</div>
+        <div class="source-name">${name}</div>
+      </div>
+      <div class="source-bar-wrap"><div class="source-bar-fill" style="width:${data.total/total*100}%;background:var(--accent)"></div></div>
+      <div class="source-count">${data.total}</div>
+      <div class="source-rate" style="color:${crColor}">${cr}%</div>
+    </div>`;
+  }).join('');
+  document.getElementById('team-performance').innerHTML = teamRows || '<p style="color:var(--text3);font-size:13px">No data yet</p>';
+ 
+  // Funnel
+  const funnelStages = [
+    {label:'Total Leads',count:leads.length,color:'#4F8EF7'},
+    {label:'Contacted',count:leads.filter(l=>!['new'].includes(l.status)).length,color:'#7C3AED'},
+    {label:'Qualified',count:leads.filter(l=>['qualified','enrolled'].includes(l.status)).length,color:'#F59E0B'},
+    {label:'Enrolled',count:enrolled,color:'#22C55E'},
+  ];
+  const maxF = funnelStages[0].count || 1;
+  document.getElementById('funnel-chart').innerHTML = funnelStages.map(s => {
+    const pct = Math.round(s.count/maxF*100);
+    return `<div class="funnel-stage">
+      <div class="funnel-header">
+        <div class="funnel-label">${s.label}</div>
+        <div class="funnel-count" style="color:${s.color}">${s.count} <span class="funnel-pct">(${pct}%)</span></div>
+      </div>
+      <div class="funnel-track"><div class="funnel-fill" style="width:${pct}%;background:${s.color}"></div></div>
+    </div>`;
+  }).join('');
+}
+ 
+// ═══════════════════════════════════════════════
+// ACTIONS
+// ═══════════════════════════════════════════════
+function filterStatus(status, btn) {
+  currentFilter = status;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderLeads();
+}
+ 
+function filterLeads() { renderLeads(); }
+ 
+function updateStatus(id, newStatus) {
+  const lead = leads.find(l=>l.id===id);
+  if (lead) {
+    lead.status = newStatus;
+    saveData();
+    renderAll();
+    showToast(`${lead.name} moved to ${newStatus}`);
+  }
+}
+ 
+function deleteLead(id) {
+  const lead = leads.find(l=>l.id===id);
+  if (!lead) return;
+  if (confirm(`Delete lead for ${lead.name}? This cannot be undone.`)) {
+    leads = leads.filter(l=>l.id!==id);
+    saveData();
+    renderAll();
+    showToast('Lead deleted', 'error');
+  }
+}
+ 
+function openModal() {
+  document.getElementById('modal-overlay').classList.add('open');
+  document.getElementById('f-name').focus();
+}
+ 
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  ['f-name','f-phone','f-email','f-campaign','f-adset','f-notes','f-value'].forEach(id=>{
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  document.getElementById('f-source').value = '';
+  document.getElementById('f-course').value = '';
+  document.getElementById('f-score').value = 'Warm';
+  document.getElementById('f-assign').value = 'Admin';
+}
+ 
+function closeModalOutside(e) {
+  if (e.target === document.getElementById('modal-overlay')) closeModal();
+}
+ 
+function addLead() {
+  const name = document.getElementById('f-name').value.trim();
+  const phone = document.getElementById('f-phone').value.trim();
+  const source = document.getElementById('f-source').value;
+ 
+  if (!name) { showToast('Please enter a name', 'error'); document.getElementById('f-name').focus(); return; }
+  if (!phone) { showToast('Please enter a phone number', 'error'); document.getElementById('f-phone').focus(); return; }
+  if (!source) { showToast('Please select a lead source', 'error'); document.getElementById('f-source').focus(); return; }
+ 
+  const newLead = {
+    id: nextId++,
+    name, phone,
+    email: document.getElementById('f-email').value.trim(),
+    source,
+    campaign: document.getElementById('f-campaign').value.trim(),
+    adset: document.getElementById('f-adset').value.trim(),
+    course: document.getElementById('f-course').value,
+    status: 'new',
+    score: document.getElementById('f-score').value,
+    assigned: document.getElementById('f-assign').value,
+    notes: document.getElementById('f-notes').value.trim(),
+    value: parseInt(document.getElementById('f-value').value) || 15000,
+    date: new Date().toISOString().split('T')[0],
+  };
+ 
+  leads.unshift(newLead);
+  saveData();
+  closeModal();
+  renderAll();
+  showToast(`Lead added: ${name}`);
+}
+ 
+function exportCSV() {
+  const headers = ['ID','Name','Phone','Email','Source','Campaign','Ad Set','Course','Status','Score','Assigned To','Notes','Date','Value (INR)'];
+  const rows = leads.map(l => [
+    l.id, l.name, l.phone, l.email||'', l.source, l.campaign||'', l.adset||'',
+    l.course||'', l.status, l.score, l.assigned, (l.notes||'').replace(/,/g,' '), l.date, l.value||0
+  ].map(v => `"${v}"`).join(','));
+  const csv = [headers.join(','), ...rows].join('\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(csv);
+  a.download = 'habili_leads_' + new Date().toISOString().split('T')[0] + '.csv';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  showToast('Exported ' + leads.length + ' leads to CSV');
+}
+ 
+// ═══════════════════════════════════════════════
+// KEYBOARD SHORTCUT
+// ═══════════════════════════════════════════════
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal();
+  if ((e.ctrlKey||e.metaKey) && e.key==='k') { e.preventDefault(); openModal(); }
+});
+ 
+// ═══════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════
+function renderAll() {
+  renderDashboard();
+  renderLeads();
+  renderPipeline();
+  renderAnalytics();
+}
+ 
+renderAll();
 </script>
 </body>
 </html>
